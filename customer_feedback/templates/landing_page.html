@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Existing meta tags and Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <style>
+        /* Custom styling to enhance user experience */
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background-color: #ffffff !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: #2c3e50 !important;
+        }
+
+        .nav-link {
+            color: #34495e !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #3498db !important;
+            transform: translateY(-2px);
+        }
+
+        .welcome-banner {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .security-features {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .invoice-button {
+            transition: all 0.3s ease;
+        }
+
+        .invoice-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        html {
+                scroll-behavior: smooth;
+                }
+ 
+    </style>
+        <script>
+            // JavaScript function to toggle the visibility of the pending invoices table
+            // JavaScript function to toggle the visibility of the pending invoices table
+    
+            // Dummy data for line items (Replace with actual data from your database)
+            const lineItems = {
+                "180000001": [
+                    { id: 1, name: "Item A", quantity: 5 },
+                    { id: 2, name: "Item B", quantity: 3 },
+                    { id: 3, name: "Item C", quantity: 10 },
+                ],
+                "180000002": [
+                    { id: 1, name: "Item X", quantity: 2 },
+                    { id: 2, name: "Item Y", quantity: 8 },
+                ],
+                "180000003": [
+                    { id: 1, name: "Item X", quantity: 2 },
+                    { id: 2, name: "Item Y", quantity: 8 },
+                ],
+                "180000004": [
+                    { id: 1, name: "Item X", quantity: 2 },
+                    { id: 2, name: "Item Y", quantity: 8 },
+                ],
+                "180000005": [
+                    { id: 1, name: "Item X", quantity: 2 },
+                    { id: 2, name: "Item Y", quantity: 8 },
+                ],
+                "180000006": [
+                    { id: 1, name: "Item X", quantity: 2 },
+                    { id: 2, name: "Item Y", quantity: 8 },
+                ]
+            };
+    
+    
+            function togglePendingInvoices() {
+                var table = document.getElementById("pendingInvoicesTable");
+                // Toggle visibility
+                if (table.style.display === "none") {
+                    table.style.display = "block";
+                } else {
+                    table.style.display = "none";
+                }
+            }
+    
+            // Function to count pending and overdue invoices and show alert if necessary
+            function checkPendingInvoices() {
+                // Select pending (yellow) and overdue (red) invoices
+                var pendingInvoices = document.querySelectorAll("td span.bg-warning, td span.bg-danger");
+                var alertMessage = document.getElementById("pendingInvoicesAlert");
+                var pendingInvoicesCount = document.getElementById("pendingInvoicesCount");
+    
+                // Update the count of pending invoices
+                pendingInvoicesCount.textContent = pendingInvoices.length;
+    
+                // If there are 5 or more pending invoices, show the alert
+                if (pendingInvoices.length >= 5) {
+                    alertMessage.style.display = "block"; // Show alert
+                } else {
+                    alertMessage.style.display = "none"; // Hide alert
+                }
+            }
+    
+            // Function to check overdue invoices and update status
+            function checkOverdueInvoices() {
+                var currentDate = new Date(); // Get today's date
+    
+                var rows = document.querySelectorAll("tbody tr"); // Select all rows in the table
+    
+                rows.forEach(function (row) {
+                    var dueDate = row.cells[3].innerText; // Get due date from the 4th column
+                    var invoiceStatus = row.cells[5].querySelector("span"); // Get status span from the 6th column
+    
+                    // Convert due date string to Date object
+                    var dueDateObj = new Date(dueDate);
+    
+                    // Check if due date has passed and status is still pending
+                    if (currentDate > dueDateObj && invoiceStatus && invoiceStatus.classList.contains("bg-warning")) {
+                        // Change the status to overdue
+                        invoiceStatus.classList.remove("bg-warning", "text-dark");
+                        invoiceStatus.classList.add("bg-danger");
+                        invoiceStatus.innerText = "Overdue";
+                    }
+                });
+            }
+    
+            // Call the functions on page load
+            window.onload = function () {
+                checkOverdueInvoices(); // First mark any overdue invoices
+                checkPendingInvoices(); // Then count pending and overdue invoices
+            }
+            function showLineItems(invoiceNumber) {
+                const modalBody = document.getElementById("lineItemTableBody");
+                modalBody.innerHTML = ""; // Clear existing data
+    
+                if (lineItems[invoiceNumber]) {
+                    lineItems[invoiceNumber].forEach(item => {
+                        const row = `
+                    <tr>
+                        <td>${item.id}</td>
+                        <td>${item.name}</td>
+                        <td>${item.quantity}</td>
+                        <td>
+                            <input type="number" class="form-control" value="${item.quantity}" min="1">
+                        </td>
+                    </tr>`;
+                        modalBody.innerHTML += row;
+                    });
+                } else {
+                    modalBody.innerHTML = "<tr><td colspan='4'>No line items available.</td></tr>";
+                }
+    
+                // Initialize and show the Bootstrap 5 modal
+                const modal = new bootstrap.Modal(document.getElementById('lineItemModal'));
+                modal.show();
+            }
+    
+            // Save changes function (example implementation)
+            function saveChanges() {
+                alert("Changes have been saved!"); // Replace this with your save logic
+            }
+            ////////********** below code will tell you about user activity
+            // Function to track user visits
+            // Function to track user visits with detailed timestamp
+            function trackUserActivity() {
+                // Get current detailed timestamp
+                const currentTime = new Date();
+                const detailedTimestamp = {
+                    fullDate: currentTime.toLocaleDateString(), // e.g., 12/4/2024
+                    time: currentTime.toLocaleTimeString(), // e.g., 3:45:30 PM
+                    fullTimestamp: currentTime.toLocaleString(), // Full date and time
+                    timestamp: currentTime.getTime(), // Unique timestamp for sorting
+                    browserInfo: {
+                        userAgent: navigator.userAgent,
+                        platform: navigator.platform,
+                        language: navigator.language
+                    }
+                };
+    
+                // Retrieve existing visits from localStorage
+                let userVisits = JSON.parse(localStorage.getItem('websiteVisits')) || [];
+    
+                // Add current visit
+                userVisits.push(detailedTimestamp);
+    
+                // Limit to last 20 visits to prevent localStorage from getting too large
+                if (userVisits.length > 20) {
+                    userVisits = userVisits.slice(-20);
+                }
+    
+                // Save back to localStorage
+                localStorage.setItem('websiteVisits', JSON.stringify(userVisits));
+    
+                // Update visit count display
+                updateVisitCountDisplay();
+            }
+    
+            // Function to update visit count in the navbar
+            function updateVisitCountDisplay() {
+                const userVisits = JSON.parse(localStorage.getItem('websiteVisits')) || [];
+                const visitCountElement = document.getElementById('userVisitCount');
+    
+                if (visitCountElement) {
+                    visitCountElement.textContent = userVisits.length;
+                }
+            }
+    
+            // Function to show activity modal with detailed information
+            function showUserActivity() {
+                const userVisits = JSON.parse(localStorage.getItem('websiteVisits')) || [];
+                const modalBody = document.getElementById('userActivityModalBody');
+    
+                // Clear previous content
+                modalBody.innerHTML = '';
+    
+                // If no visits, show a message
+                if (userVisits.length === 0) {
+                    modalBody.innerHTML = '<p>No activity recorded yet.</p>';
+                    return;
+                }
+    
+                // Create table of visits
+                let tableHTML = `
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Browser</th>
+                            <th>Platform</th>
+                            <th>Language</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+    
+                // Reverse the array to show most recent visits first
+                userVisits.reverse().forEach(visit => {
+                    tableHTML += `
+                    <tr>
+                        <td>${visit.fullDate}</td>
+                        <td>${visit.time}</td>
+                        <td>${extractBrowserName(visit.browserInfo.userAgent)}</td>
+                        <td>${visit.browserInfo.platform}</td>
+                        <td>${visit.browserInfo.language}</td>
+                    </tr>
+                `;
+                });
+    
+                tableHTML += `
+                    </tbody>
+                </table>
+            `;
+    
+                modalBody.innerHTML = tableHTML;
+            }
+    
+            // Function to extract browser name from user agent
+            function extractBrowserName(userAgent) {
+                if (userAgent.includes("Chrome")) return "Chrome";
+                if (userAgent.includes("Firefox")) return "Firefox";
+                if (userAgent.includes("Safari")) return "Safari";
+                if (userAgent.includes("Edge")) return "Edge";
+                if (userAgent.includes("MSIE") || userAgent.includes("Trident/")) return "Internet Explorer";
+                return "Unknown Browser";
+            }
+    
+            // Clear activity data
+            function clearUserActivity() {
+                localStorage.removeItem('websiteVisits');
+                updateVisitCountDisplay();
+                showUserActivity();
+            }
+    
+            // Call trackUserActivity when the page loads
+            window.onload = function () {
+                trackUserActivity();
+                updateVisitCountDisplay();
+            }
+        </script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="CompanyLogo.png" width="60" height="30" class="d-inline-block align-top me-2" alt="CompanyLogo">
+                Jayaswal Neco Industries Limited
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                   
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://necoindia.com/group-profile.php" target="_blank">
+                            <i class="bi bi-info-circle me-2"></i>About Us
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"  href="/logout/">Logout</a> 
+                    </li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-envelope me-2"></i>Contact Us
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="tel:+917898459241">
+                                <i class="bi bi-phone me-2"></i>Mobile: +91 7898459241</a></li>
+                            <li><a class="dropdown-item" href="mailto:your.email@example.com">
+                                <i class="bi bi-mailbox me-2"></i>Email: your.email@example.com</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">
+                                <i class="bi bi-pencil me-2"></i>Write for Us</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarActivityDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-activity me-2"></i>My Activity
+                            <span class="badge bg-danger ms-1" id="userVisitCount">0</span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarActivityDropdown">
+                            <li>
+                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#userActivityModal">
+                                    <i class="bi bi-list-task me-2"></i>View Activity History
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item text-danger" href="#" onclick="clearUserActivity()">
+                                    <i class="bi bi-trash me-2"></i>Clear Activity Data
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <form class="d-flex ms-3" role="search">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+                        <input class="form-control border-start-0 ps-0" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Updated Welcome Banner -->
+    <div class="container mt-4">
+        <div class="welcome-banner text-center">
+            <h1 class="display-5 mb-3">Secure Invoice & Feedback Management</h1>
+            <p class="lead">Streamline your billing process with advanced tracking and user-friendly interface</p>
+        </div>
+
+        <div class="row security-features text-center">
+            <div class="col-md-4 mb-3">
+                <i class="bi bi-shield-lock display-4 text-primary mb-3"></i>
+                <h4>Data Protection</h4>
+                <p>Your financial information is encrypted and secure</p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <i class="bi bi-lock display-4 text-success mb-3"></i>
+                <h4>Privacy Assured</h4>
+                <p>We follow strict data privacy guidelines</p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <i class="bi bi-clock-history display-4 text-warning mb-3"></i>
+                <h4>Transparent Tracking</h4>
+                <p>Real-time invoice and activity monitoring</p>
+            </div>
+        </div>
+
+        <!-- Existing Pending Invoices Button -->
+        
+     
+    <div class="container text-center my-4">
+        <a class="btn btn-primary btn-lg" href="#pendingInvoices">
+            View Pending Invoices
+            <span class="badge bg-danger ml-2" id="pendingInvoicesCount">5</span>
+        </a>
+    </div>
+    
+    </div>
+
+    <!-- Rest of the existing HTML remains the same -->
+       <!-- Alert for more than 5 pending invoices -->
+    <div class="alert alert-danger" role="alert" id="pendingInvoicesAlert" style="display: none;">
+        You have more than five invoices pending
+    </div>
+    </div>
+
+    <!-- Pending Invoices Table (Initially Hidden) -->
+    <!-- <div class="container my-5" id="pendingInvoicesTable" style="display: none;"> -->
+        <div class="container my-5" id="pendingInvoices">      
+        <h2 class="mb-4">Pending Invoices</h2>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Sno</th>
+                        <th>Invoice Number</th>
+                        <th>Customer Name</th>
+                        <th>Due Date</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><a href="javascript:void(0)" onclick="showLineItems('180000001')">180000001</a></td>
+                        <td>John Doe</td>
+                        <td>2024-12-10</td>
+                        <td>Rs 45655</td>
+                        <td><span class="badge bg-warning text-dark">Pending</span></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><a href="javascript:void(0)" onclick="showLineItems('180000002')">180000002</a></td>
+                        <td>Jane Smith</td>
+                        <td>2024-12-15</td>
+                        <td>Rs 445655</td>
+                        <td><span class="badge bg-success">Paid</span></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><a href="javascript:void(0)" onclick="showLineItems('180000003')">180000003</a></td>
+                        <td>Robert Brown</td>
+                        <td>2024-12-20</td>
+                        <td>Rs 48475</td>
+                        <td><span class="badge bg-success">Paid</span></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><a href="javascript:void(0)" onclick="showLineItems('180000004')">180000004</a></td>
+                        <td>frabt crown</td>
+                        <td>2024-12-02</td>
+                        <td>Rs 23550</td>
+                        <td><span class="badge bg-warning text-dark">Pending</span></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><a href="javascript:void(0)" onclick="showLineItems('180000005')">180000005</a></td>
+                        <td>Vimal</td>
+                        <td>2024-12-10</td>
+                        <td>Rs 111500</td>
+                        <td><span class="badge bg-warning text-dark">Pending</span></td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><a href="javascript:void(0)" onclick="showLineItems('180000006')">180000006</a></td>
+                        <td>Johnny Doe</td>
+                        <td>2024-12-10</td>
+                        <td>Rs 33500</td>
+                        <td><span class="badge bg-warning text-dark">Pending</span></td>
+                </tbody>
+            </table>
+        </div>
+
+           <!-- Line Items Modal -->
+    <div class="modal fade" id="lineItemModal" tabindex="-1" aria-labelledby="lineItemModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="lineItemModalLabel">Line Items</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Original Quantity</th>
+                                <th>Adjust Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lineItemTableBody">
+                            <!-- Line items will be dynamically inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="saveChanges()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="userActivityModal" tabindex="-1" aria-labelledby="userActivityModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userActivityModalLabel">My Website Activity</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="userActivityModalBody">
+                    <!-- Activity data will be inserted here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ****************user activity tracking data  ***************-->
+    <div class="modal fade" id="userActivityModal" tabindex="-1" aria-labelledby="userActivityModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userActivityModalLabel">My Website Activity</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="userActivityModalBody">
+                    <!-- Activity data will be inserted here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
