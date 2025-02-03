@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JNIL - Enterprise Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --gradient-start: #1e40af;
+            --gradient-end: #3b82f6;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+        }
+
+        /* Enhanced Navbar Styling */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--text-primary) !important;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: translateY(-1px);
+        }
+
+        .navbar-brand img {
+            width: auto;
+            height: 40px;
+            margin-right: 1rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        /* Enhanced Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            border-radius: 2rem;
+            padding: 5rem 2rem;
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px -15px rgba(37, 99, 235, 0.3);
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1'/%3E%3C/svg%3E");
+            opacity: 0.1;
+            animation: backgroundMove 30s linear infinite;
+        }
+
+        @keyframes backgroundMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 100% 100%; }
+        }
+
+        .hero-title {
+            color: white;
+            font-weight: 800;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hero-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.35rem;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Enhanced Feature Cards */
+        .feature-card {
+            background: var(--bg-white);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            height: 100%;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px -15px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        /* Enhanced Action Button */
+        .action-button {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 1rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            box-shadow: 0 4px 15px -3px rgba(37, 99, 235, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-button:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 20px -5px rgba(37, 99, 235, 0.5);
+            color: white;
+        }
+
+        .action-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+        }
+
+        .action-button:hover::after {
+            animation: buttonGlow 1.5s infinite;
+        }
+
+        @keyframes buttonGlow {
+            100% { transform: translateX(100%); }
+        }
+
+        /* Enhanced Modal Styling */
+        .modal-content {
+            border-radius: 1.5rem;
+            border: none;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .modal-header {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            background: linear-gradient(to right, var(--bg-light), white);
+            border-radius: 1.5rem 1.5rem 0 0;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-footer {
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            background: var(--bg-light);
+            border-radius: 0 0 1.5rem 1.5rem;
+        }
+
+        /* Enhanced Table Styling */
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table thead th {
+            background: var(--bg-light);
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--text-primary);
+            font-weight: 600;
+            padding: 1rem;
+        }
+
+        .table tbody td {
+            padding: 1rem;
+            vertical-align: middle;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .table tbody tr:hover {
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 3rem 1.5rem;
+                border-radius: 1.5rem;
+            }
+
+            .hero-title {
+                font-size: 2.25rem;
+            }
+
+            .feature-card {
+                margin-bottom: 1.5rem;
+            }
+
+            .modal-dialog {
+                margin: 0.5rem;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --gradient-start: #1e40af;
+            --gradient-end: #3b82f6;
+        }
+        
+        .dark-mode {
+            --text-primary: #e5e7eb;
+            --text-secondary: #94a3b8;
+            --bg-light: #1e293b;
+            --bg-white: #0f172a;
+            --gradient-start: #1e293b;
+            --gradient-end: #3b82f6;
+        }
+        
+        .dark-mode body {
+            background-color: var(--bg-light);
+            color: var(--text-primary);
+        }
+        
+        .dark-mode .navbar {
+            background-color: rgba(15, 23, 42, 0.95) !important;
+            box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.1);
+        }
+        
+        .dark-mode .navbar-brand,
+        .dark-mode .navbar-nav .nav-link {
+            color: white !important;  /* Ensure navbar text is visible */
+        }
+        
+        .dark-mode .navbar-nav .nav-link:hover {
+            color: #93c5fd !important; /* Light blue on hover */
+        }
+        
+        /* Ensure dropdown menu is also visible */
+        .dark-mode .dropdown-menu {
+            background-color: #1e293b !important;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .dark-mode .dropdown-item {
+            color: white !important;
+        }
+        
+        .dark-mode .dropdown-item:hover {
+            background-color: #2563eb !important;
+            color: white !important;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="JNIL Logo" class="me-2">
+
+                Jayaswal Neco Industries Limited
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://necoindia.com/group-profile.php" target="_blank">
+                            <i class="bi bi-building me-2"></i>About Us
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            <i class="bi bi-headset me-2"></i>Support
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="tel:+917898459241">
+                                    <i class="bi bi-telephone me-2"></i>+91 7898459241
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="mailto:support@jnil.com">
+                                    <i class="bi bi-envelope me-2"></i>support@jnil.com
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-chat-dots me-2"></i>Live Chat
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <a class="nav-link" href="{{ url_for('logout') }}">
+                            <i class="bi bi-box-arrow-right me-2"></i>Logout
+                        </a>
+                    </li>
+                    <li class="nav-item ms-3">
+                        <button id="darkModeToggle" class="btn btn-outline-primary">
+                            <i class="bi bi-moon"></i> Dark Mode
+                        </button>
+                    </li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle me-2"></i>Profile
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li>
+                                <div class="dropdown-item-text">
+                                    <strong>User ID:</strong> 
+                                    <span id="currentUserId">{{ session['customer_id'] }}</span>
+                                </div>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                                    <i class="bi bi-lock me-2"></i>Change Password
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero-section text-center">
+            <h1 class="hero-title">Enterprise Invoice Management</h1>
+            <p class="hero-subtitle">Streamline your billing process with advanced security and real-time tracking</p>
+        </div>
+
+        <div class="row mt-5 g-4">
+            <div class="col-md-4">
+                <div class="feature-card text-center">
+                    <i class="bi bi-shield-check feature-icon"></i>
+                    <h3 class="feature-title">Enterprise Security</h3>
+                    <p class="feature-description">Bank-grade encryption and advanced security protocols to protect your sensitive financial data</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card text-center">
+                    <i class="bi bi-graph-up feature-icon"></i>
+                    <h3 class="feature-title">Real-time Analytics</h3>
+                    <p class="feature-description">Track invoices, monitor payments, and analyze business performance in real-time</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card text-center">
+                    <i class="bi bi-clock-history feature-icon"></i>
+                    <h3 class="feature-title">Automated Tracking</h3>
+                    <p class="feature-description">Automated invoice tracking and status updates for enhanced efficiency</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5 mb-5">
+            <!-- Update this link to trigger the JavaScript function instead of navigating to the URL -->
+            <a href="javascript:void(0);" id="fetchInvoicesButton" class="action-button" onclick="fetchInvoices()">
+                View Pending Invoices
+                <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+        </div>
+        
+        <div id="invoicesContainer"></div>
+
+        <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="changePasswordForm">
+                            <div class="mb-3">
+                                <label for="currentPassword" class="form-label">Current Password</label>
+                                <input type="password" class="form-control" id="currentPassword" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newPassword" class="form-label">New Password</label>
+                                <input type="password" class="form-control" id="newPassword" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
+                                <input type="password" class="form-control" id="confirmNewPassword" required>
+                            </div>
+                            <div id="passwordChangeError" class="text-danger mb-3" style="display:none;"></div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" onclick="changePassword()">Change Password</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+<!-- Modal Structure -->
+<!-- Modal HTML Structure -->
+<div class="modal fade" id="invoiceDetailsModal" tabindex="-1" aria-labelledby="invoiceDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="invoiceDetailsModalLabel">Invoice Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-hover" style="width: 100%; height: 100%; overflow: visible;">
+                        <thead>
+                            <tr>
+                              
+
+                                <th scope="row">customer_id</th>
+
+                                <th scope="row">customer_name</th>
+                                <th scope="row">invoice_item</th> 
+                                <th scope="row">invoice_quantity</th>
+                                <th scope="row">received_quantity</th>
+                                <th scope="row">material</th>
+                                <th scope="row">material_description</th>
+                                <th scope="row">sales_unit</th>
+                                <th scope="row">remark</th>
+                            </tr>
+                        </thead>
+                    <tbody id="fullinvoiceTableBody" >
+                        
+                        
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="submitInvoiceBtn" onclick="submitInvoiceDetails()" data-bs-dismiss="modal">Submit</button>
+                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+  </div>
+
+  
+  
+
+<!-- Add this script for handling invoice fetching -->
+<script>
+    let lastScrollPosition = 0; // Store the last scroll position
+
+    function fetchInvoices() {
+        const fetchButton = document.getElementById('fetchInvoicesButton'); // The button that triggers the fetch
+        const invoicesContainer = document.getElementById('invoicesContainer'); // The container where we'll show the invoices
+        
+        // Check if the invoices table is already visible
+        if (invoicesContainer.classList.contains('visible')) {
+            // If it's visible, apply the fade-out and slide-up effect before hiding the table
+            invoicesContainer.classList.remove('visible');
+            invoicesContainer.classList.add('hidden');
+            
+            // Store the current scroll position before hiding the table
+            lastScrollPosition = window.scrollY;
+    
+            // After the fade-out and slide-up transition completes, set display to 'none'
+            setTimeout(() => {
+                invoicesContainer.style.display = 'none';
+                // Smoothly scroll back to the original position
+                window.scrollTo({
+                    top: lastScrollPosition,
+                    behavior: 'smooth'
+                });
+            }, 500); // Match the duration of the fade and slide-out transition (500ms)
+            return; // Exit the function if hiding the table
+        }
+        
+        // Show loading message until data is fetched
+        invoicesContainer.innerHTML = '<p>Loading invoices...</p>';
+        invoicesContainer.style.display = 'block'; // Ensure the container is visible before inserting the data
+        invoicesContainer.classList.remove('hidden');
+        invoicesContainer.classList.add('visible');
+    
+        fetch('/fetch_invoices')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                // Return the raw text response, and then parse it as JSON
+                return response.text(); 
+            })
+            .then(data => {
+                try {
+                    // Manually parse the JSON data
+                    const invoices = JSON.parse(data);
+                    console.log('Fetched Data:', invoices);
+                    
+                    // Check if we have any invoices to display
+                    if (Array.isArray(invoices) && invoices.length > 0) {
+                        const table = `
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Invoice Number</th>
+                                        <th>Customer ID</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${invoices.map(invoice => `
+                                        <tr>
+                                            <td class="text-decoration-none"
+                                                onclick="openInvoiceDetails('${invoice.invoice_number}')" style="color: blue;"> 
+                                                ${invoice.invoice_number}
+                                            </td>
+                                            <td>${invoice.customer_id}</td>
+                                            <td>${invoice.status}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            </table>
+                        `;
+                        invoicesContainer.innerHTML = table;
+                    } else {
+                        invoicesContainer.innerHTML = '<p>No pending invoices available.</p>';
+                    }
+    
+                    // Automatically scroll to the invoices container after it appears
+                    invoicesContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+                } catch (error) {
+                    console.error('Error processing data:', error);
+                    invoicesContainer.innerHTML = '<p>Error parsing invoice data</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                invoicesContainer.innerHTML = '<p>Error loading invoices</p>';
+            });
+    }
+    
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const darkModeToggle = document.getElementById("darkModeToggle");
+        const body = document.body;
+
+        // Check local storage for theme preference
+        if (localStorage.getItem("darkMode") === "enabled") {
+            body.classList.add("dark-mode");
+            darkModeToggle.innerHTML = '<i class="bi bi-sun"></i> Light Mode';
+        }
+
+        darkModeToggle.addEventListener("click", function () {
+            body.classList.toggle("dark-mode");
+
+            if (body.classList.contains("dark-mode")) {
+                localStorage.setItem("darkMode", "enabled");
+                darkModeToggle.innerHTML = '<i class="bi bi-sun"></i> Light Mode';
+            } else {
+                localStorage.setItem("darkMode", "disabled");
+                darkModeToggle.innerHTML = '<i class="bi bi-moon"></i> Dark Mode';
+            }
+        });
+    });
+</script>
+
+<script>
+    function openInvoiceDetails(invoiceNumber) {
+        console.log('Attempting to fetch details for invoice:', invoiceNumber);
+        
+        // Show loading state in the modal
+        const modal = new bootstrap.Modal(document.getElementById('invoiceDetailsModal'));
+        const tableBody = document.getElementById('fullinvoiceTableBody');
+        const heading = document.getElementById('invoiceDetailsModalLabel');
+        
+        heading.textContent = `Loading Invoice Details (${invoiceNumber})...`;
+        tableBody.innerHTML = '<tr><td colspan="9" class="text-center">Loading...</td></tr>';
+        modal.show();
+    
+        fetch(`/fetch_invoice_details/${invoiceNumber}`)
+            .then(response => {
+                console.log('Response status:', response.status);
+                if (!response.ok) {
+                    return response.json().then(err => {
+                        throw new Error(err.error || `Server returned ${response.status}`);
+                    });
+                }
+                return response.json();
+            })
+            .then(invoices => {
+                console.log('Received invoice details:', invoices);
+                
+                if (!Array.isArray(invoices)) {
+                    throw new Error('Invalid data format received from server');
+                }
+                
+                // Clear existing content
+                tableBody.innerHTML = '';
+                heading.textContent = `Invoice Details (${invoiceNumber})`;
+                
+                if (invoices.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="9" class="text-center">No invoice details found</td></tr>';
+                    return;
+                }
+    
+                invoices.forEach((invoice, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${invoice.customer || ''}</td>
+                        <td>${invoice.customer_name || ''}</td>
+                        <td>${invoice.invoice_item || ''}</td>
+                        <td>${invoice.invoice_quantity || '0'}</td>
+                        <td>
+                            <input type="number" 
+                                   class="form-control" 
+                                   style="width:100px" 
+                                   value="${invoice.received_quantity || '0'}"
+                                   min="0">
+                        </td>
+                        <td>${invoice.material || ''}</td>
+                        <td>${invoice.material_description || ''}</td>
+                        <td>${invoice.sales_unit || ''}</td>
+                        <td>
+                            <textarea class="form-control" 
+                                      style="width:130px; height:100px;">${invoice.remark || ''}</textarea>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching invoice details:', error);
+                tableBody.innerHTML = `
+                    <tr>
+                        <td colspan="9" class="text-center text-danger">
+                            Error: ${error.message}
+                            <br>
+                            <small>Please refresh the page and try again. If the error persists, contact support.</small>
+                        </td>
+                    </tr>
+                `;
+                heading.textContent = `Error Loading Invoice Details (${invoiceNumber})`;
+            });
+    }
+    // Function to send updated data back to Flask
+    function submitInvoiceDetails() {
+        // Get the modal title element
+        const modalTitle = document.querySelector('#invoiceDetailsModalLabel');
+        
+        // Use regular expression to extract the invoice number from parentheses
+        const match = modalTitle.textContent.match(/\((\d+)\)/);
+        
+    
+        // Log the invoiceNumber to check if it's correct
+        console.log('Invoice Number:', match);
+    
+        // Ensure invoice number was found, otherwise alert and exit
+        if (!match || !match[1]) {
+            alert('Invalid invoice number');
+            return;  // Exit the function if invoiceNumber is undefined or invalid
+        }
+    
+        // Extract the invoice number from the match result
+        const invoiceNumber = match[1];
+    
+        // Proceed to gather the data from the invoice table
+        const tableBody = document.getElementById('fullinvoiceTableBody');
+        const invoiceData = [];
+        const rows = tableBody.getElementsByTagName('tr');
+    
+        // Loop through each row in the table and collect the relevant data
+        for (let row of rows) {
+            const tds = row.getElementsByTagName('td');
+            const receivedQuantityInput = tds[4] ? tds[4].querySelector('input[type="number"]') : null;
+            const remarkInput = tds[8] ? tds[8].querySelector('textarea') : null;
+    
+            invoiceData.push({
+                received_quantity: receivedQuantityInput ? receivedQuantityInput.value : null,
+                remark: remarkInput ? remarkInput.value : null,
+            });
+        }
+    
+        // Send the collected data to the Flask backend using a POST request
+        fetch(`/update_invoice_details/${invoiceNumber}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                invoice_number: invoiceNumber,
+                details: invoiceData,
+            }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json(); // Assuming the response is JSON
+        })
+        .then(data => {
+            console.log('Invoice details updated successfully:', data);
+            alert('Invoice details updated successfully!');
+        })
+        .catch(error => {
+            console.error('Error updating invoice details:', error);
+            alert('There was an error updating the invoice details.');
+        });
+    }
+    function changePassword() {
+        const currentPassword = document.getElementById('currentPassword').value;
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+        const errorDisplay = document.getElementById('passwordChangeError');
+    
+        // Clear previous error
+        errorDisplay.style.display = 'none';
+        errorDisplay.textContent = '';
+    
+        // Basic validation
+        if (newPassword !== confirmNewPassword) {
+            errorDisplay.textContent = 'New passwords do not match';
+            errorDisplay.style.display = 'block';
+            return;
+        }
+    
+        // Send password change request to server
+        fetch('/change_password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                current_password: currentPassword,
+                new_password: newPassword
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert('Password changed successfully');
+                // Close the modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById('changePasswordModal'));
+                modal.hide();
+            } else {
+                errorDisplay.textContent = data.message;
+                errorDisplay.style.display = 'block';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            errorDisplay.textContent = 'An error occurred. Please try again.';
+            errorDisplay.style.display = 'block';
+        });
+    }
+
+
+</script> <!-- Rest of the HTML structure remains the same -->
+    <!-- [Previous HTML content from line 207 onwards remains unchanged] -->
+</body>
+</html>
