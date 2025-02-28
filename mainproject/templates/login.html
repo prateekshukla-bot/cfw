@@ -4,178 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jayaswal Neco Industries Limited - Login</title>
-    <!-- <link rel="stylesheet" href="css/styles.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #1a4f8b;
-            --secondary-color: #f0f4f8;
-            --text-color: #2c3e50;
-        }
-
-        body {
-            font-family: 'Segoe UI', 'Arial', sans-serif;
-            background: linear-gradient(135deg, var(--secondary-color) 0%, #ffffff 100%);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            color: var(--text-color);
-        }
-
-        .login-container {
-            display: flex;
-            width: 900px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            margin: 20px;
-        }
-
-        .login-branding {
-            background: var(--primary-color);
-            padding: 40px;
-            color: white;
-            width: 40%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .company-logo {
-            width: 150px;
-            height: 150px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        .login-box {
-            padding: 40px;
-            width: 60%;
-            background: white;
-        }
-
-        .login-box h1 {
-            color: var(--text-color);
-            font-size: 28px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-            position: relative;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--text-color);
-            font-weight: 500;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px 40px 12px 15px;
-            border: 2px solid #e1e1e1;
-            border-radius: 8px;
-            font-size: 15px;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus {
-            border-color: var(--primary-color);
-            outline: none;
-        }
-
-        .form-group i {
-            position: absolute;
-            right: 15px;
-            top: 40px;
-            color: #666;
-        }
-
-        .btn {
-            background: var(--primary-color);
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            width: 100%;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn:hover {
-            background: #2c67b8;
-        }
-
-        .footer-text {
-            text-align: center;
-            margin-top: 20px;
-            color: #666;
-            font-size: 14px;
-        }
-
-        @media (max-width: 768px) {
-            .login-container {
-                flex-direction: column;
-                width: 100%;
-                max-width: 400px;
-            }
-
-            .login-branding {
-                width: 100%;
-                padding: 30px;
-            }
-
-            .login-box {
-                width: 100%;
-                padding: 30px;
-            }
-
-            .company-logo {
-                width: 120px;
-                height: 120px;
-            }
-        }
-
-
-        .company-logo {
-            width: 150px;
-            height: 150px;
-            background: white url('logo.png') center/80% no-repeat;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--primary-color);
-            position: relative;
-        }
-        
-        .company-logo::after {
-            content: "JNIL";
-            position: absolute;
-            z-index: 1;
-        }
-    </style>
+    <link rel="stylesheet" href="static/css/login.css">
 </head>
 <body>
     <div class="login-container">
@@ -187,23 +17,48 @@
         </div>
         <div class="login-box">
             <h1>Customer Feedback Portal</h1>
+            
+            <!-- Login Form -->
             <form id="login_form" method="post" action="/">
-                <input type="hidden" name="csrf_token" value="<?php echo bin2hex(random_bytes(32)); ?>">
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            
                 <div class="form-group">
-                <label for="customer_id">Customer ID:</label>
-                <input type="text" name="customer_id" id="customer_id" required>
+                    <label for="username">Username:</label>
+                    <input type="text" name="username" id="username" required>
                     <i class="fas fa-user"></i>
                 </div>
+            
                 <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" name="password" id="password" required>
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" id="password" required>
                     <i class="fas fa-lock"></i>
                 </div>
+            
+                <div class="form-group radio-group">
+                    <label>Login as:</label>
+                    <div class="radio-container">
+                        <input type="radio" name="user_type" value="customer" id="customer" checked>
+                        <label for="customer" class="radio-label">Customer</label>
+                
+                        <input type="radio" name="user_type" value="admin" id="admin">
+                        <label for="admin" class="radio-label">Admin</label>
+                    </div>
+                </div>
+                
+                
+            
                 <button type="submit" class="btn">Login</button>
+            
+                {% if error %}
+                  <p class="error-message" style="color:red;">{{ error }}</p>
+                {% endif %}
+
+            
                 <div class="footer-text">
-                    <p>© 2025 Jayaswal Neco Industries Limited. All rights reserved.</p>
+                    <p>&copy; 2025 Jayaswal Neco Industries Limited. All rights reserved.</p>
                 </div>
             </form>
+            
         </div>
     </div>
 </body>

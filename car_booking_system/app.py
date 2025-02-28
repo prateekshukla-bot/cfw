@@ -103,6 +103,8 @@ def admin_dashboard():
     
     cur.close()
     return render_template('admin_dashboard.html', cars=cars, bookings=bookings)
+
+
 @app.route('/admin/approve_booking/<int:booking_id>')
 def approve_booking(booking_id):
     if 'user_id' not in session or not session.get('is_admin'):

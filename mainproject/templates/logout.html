@@ -23,4 +23,29 @@
 <body>
     <h2>Logging out...</h2>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout</title>
+    <script type="text/javascript">
+        // Function to log out and redirect
+        function logout() {
+            // Clear the session storage or cookies if used for login session
+            sessionStorage.clear(); // If you're using sessionStorage
+            // Or if using cookies, you can delete them like:
+            // document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+           
+            // Redirect to login page
+            window.location.href = "login.html";
+        }
+       
+        // Call logout function on page load
+        window.onload = logout;
+    </script>
+</head>
+<body>
+    <h2>Logging out...</h2>
+</body>
 </html>
