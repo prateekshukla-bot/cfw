@@ -1,7 +1,12 @@
 :root {
     --primary-color: #1a4f8b;
     --secondary-color: #f0f4f8;
+    --accent-color: #0056b3;
     --text-color: #2c3e50;
+    --error-color: #e74c3c;
+    --success-color: #2ecc71;
+    --border-color: #e1e1e1;
+    --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
 body {
@@ -18,19 +23,19 @@ body {
 
 .login-container {
     display: flex;
-    width: 900px;
+    width: 800px; /* Reduced from 900px */
     background: white;
-    border-radius: 20px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 16px; /* Slightly reduced */
+    box-shadow: 0 12px 25px var(--shadow-color);
     overflow: hidden;
     margin: 20px;
 }
 
 .login-branding {
     background: var(--primary-color);
-    padding: 40px;
+    padding: 30px; /* Reduced from 40px */
     color: white;
-    width: 40%;
+    width: 38%; /* Slightly reduced */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -39,126 +44,19 @@ body {
 }
 
 .company-logo {
-    width: 150px;
-    height: 150px;
-    background: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    color: var(--primary-color);
-}
-
-.login-box {
-    padding: 40px;
-    width: 60%;
-    background: white;
-}
-
-.login-box h1 {
-    color: var(--text-color);
-    font-size: 28px;
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.form-group {
-    margin-bottom: 25px;
-    position: relative;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    color: var(--text-color);
-    font-weight: 500;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 12px 40px 12px 15px;
-    border: 2px solid #e1e1e1;
-    border-radius: 8px;
-    font-size: 15px;
-    transition: border-color 0.3s ease;
-}
-
-.form-group input:focus {
-    border-color: var(--primary-color);
-    outline: none;
-}
-
-.form-group i {
-    position: absolute;
-    right: 15px;
-    top: 40px;
-    color: #666;
-}
-
-.btn {
-    background: var(--primary-color);
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    width: 100%;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-    background: #2c67b8;
-}
-
-.footer-text {
-    text-align: center;
-    margin-top: 20px;
-    color: #666;
-    font-size: 14px;
-}
-
-@media (max-width: 768px) {
-    .login-container {
-        flex-direction: column;
-        width: 100%;
-        max-width: 400px;
-    }
-
-    .login-branding {
-        width: 100%;
-        padding: 30px;
-    }
-
-    .login-box {
-        width: 100%;
-        padding: 30px;
-    }
-
-    .company-logo {
-        width: 120px;
-        height: 120px;
-    }
-}
-
-
-.company-logo {
-    width: 150px;
-    height: 150px;
+    width: 120px; /* Reduced from 150px */
+    height: 120px; /* Reduced from 150px */
     background: white url('logo.png') center/80% no-repeat;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
-    font-size: 24px;
+    margin-bottom: 15px; /* Reduced from 20px */
+    font-size: 22px; /* Reduced from 24px */
     font-weight: bold;
     color: var(--primary-color);
     position: relative;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
 }
 
 .company-logo::after {
@@ -166,41 +64,217 @@ body {
     position: absolute;
     z-index: 1;
 }
+
+.login-branding h1 {
+    font-size: 22px; /* Reduced from 26px */
+    margin: 8px 0; /* Reduced from 10px */
+}
+
+.login-branding h2 {
+    font-size: 16px; /* Reduced from 18px */
+    font-weight: 500;
+    margin-bottom: 4px; /* Reduced from 5px */
+}
+
+.login-branding p {
+    font-size: 14px; /* Reduced from 16px */
+    opacity: 0.9;
+}
+
+.login-box {
+    padding: 30px; /* Reduced from 40px */
+    width: 62%; /* Slightly increased to maintain proportion */
+    background: white;
+}
+
+.login-box h1 {
+    color: var(--text-color);
+    font-size: 24px; /* Reduced from 28px */
+    margin-bottom: 20px; /* Reduced from 30px */
+    text-align: center;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 18px; /* Reduced from 25px */
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px; /* Reduced from 8px */
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 14px; /* Reduced from 16px */
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon i:not(.password-toggle) {
+    position: absolute;
+    left: 12px; /* Reduced from 15px */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+}
+
+.input-with-icon .password-toggle {
+    position: absolute;
+    right: 12px; /* Reduced from 15px */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    cursor: pointer;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 12px 10px 36px; /* Reduced from 12px 15px 12px 45px */
+    border: 2px solid var(--border-color);
+    border-radius: 6px; /* Reduced from 8px */
+    font-size: 14px; /* Reduced from 15px */
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.form-group input[type="password"] {
+    padding-right: 36px; /* Reduced from 45px */
+}
+
+.form-group input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(26, 79, 139, 0.2);
+    outline: none;
+}
+
+.form-group input::placeholder {
+    color: #999;
+    font-size: 13px; /* Reduced from 14px */
+}
+
+.btn {
+    background: var(--primary-color);
+    color: white;
+    padding: 10px; /* Reduced from 12px */
+    border: none;
+    border-radius: 6px; /* Reduced from 8px */
+    width: 100%;
+    font-size: 15px; /* Reduced from 16px */
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px; /* Reduced from 10px */
+}
+
+.btn:hover {
+    background: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn i {
+    font-size: 16px; /* Reduced from 18px */
+}
+
+.error-message {
+    text-align: center;
+    margin-top: 12px; /* Reduced from 15px */
+    color: var(--error-color);
+    font-size: 13px; /* Reduced from 14px */
+    background: rgba(231, 76, 60, 0.1);
+    padding: 8px; /* Reduced from 10px */
+    border-radius: 4px; /* Reduced from 5px */
+    border-left: 3px solid var(--error-color); /* Reduced from 4px */
+}
+
+.footer-text {
+    text-align: center;
+    margin-top: 20px; /* Reduced from 30px */
+    color: #666;
+    font-size: 12px; /* Reduced from 14px */
+    padding-top: 15px; /* Reduced from 20px */
+    border-top: 1px solid var(--border-color);
+}
+
 .radio-group {
-    margin-top: 10px;
+    margin-top: 8px; /* Reduced from 10px */
 }
 
 .radio-container {
     display: flex;
-    gap: 20px; /* Adjusts spacing between radio buttons */
+    gap: 15px; /* Reduced from 20px */
     align-items: center;
+    margin-top: 8px; /* Reduced from 10px */
 }
 
 .radio-container input[type="radio"] {
-    display: none; /* Hides default radio button */
+    display: none;
 }
 
 .radio-label {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 16px;
+    gap: 6px; /* Reduced from 8px */
+    font-size: 14px; /* Reduced from 16px */
     font-weight: bold;
     color: #333;
     cursor: pointer;
-    padding: 8px 12px;
-    border: 2px solid #007bff;  /* Blue border */
-    border-radius: 20px;
+    padding: 6px 14px; /* Reduced from 8px 16px */
+    border: 2px solid var(--primary-color);
+    border-radius: 16px; /* Reduced from 20px */
     transition: all 0.3s ease;
+    flex: 1;
+    justify-content: center;
 }
 
 .radio-label:hover {
-    background-color: #007bff;
-    color: white;
+    background-color: rgba(26, 79, 139, 0.1);
 }
 
 .radio-container input[type="radio"]:checked + .radio-label {
-    background-color: #007bff;
+    background-color: var(--primary-color);
     color: white;
-    border-color: #0056b3;
+    border-color: var(--accent-color);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+        width: 100%;
+        max-width: 350px; /* Reduced from 400px */
+    }
+
+    .login-branding {
+        width: 100%;
+        padding: 25px; /* Reduced from 30px */
+    }
+
+    .login-box {
+        width: 100%;
+        padding: 25px; /* Reduced from 30px */
+    }
+
+    .company-logo {
+        width: 100px; /* Reduced from 120px */
+        height: 100px; /* Reduced from 120px */
+    }
+    
+    .radio-container {
+        flex-direction: column;
+        gap: 8px; /* Reduced from 10px */
+    }
+    
+    .radio-label {
+        width: 100%;
+    }
 }

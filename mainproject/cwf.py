@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'localhost'  # WAMP default MySQL host
 app.config['MYSQL_USER'] = 'root'  # Default MySQL user
 app.config['MYSQL_PASSWORD'] = ''  # Default password (empty string in WAMP)
-app.config['MYSQL_DB'] = 'jnayil_db'  # Replace with your actual database name
+app.config['MYSQL_DB'] = 'jnil_db'  # Replace with your actual database name
 app.config['SECRET_KEY'] = os.urandom(24)  # For CSRF protection
 mysql = MySQL(app)
 
@@ -493,6 +493,7 @@ def search_users():
     users_list = [{"customer_id": user[0], "name": user[1]} for user in users]
 
     return jsonify(users_list)
+
 @app.route('/admin/change_password', methods=['POST'])
 def admin_change_password():
     if 'admin_id' not in session:
