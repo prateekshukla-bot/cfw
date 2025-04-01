@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approval System</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+   
+</head>
+<body>
+    <!-- Side Navbar -->
+    <nav class="side-navbar">
+        <div class="side-navbar-logo">JNIL-NFA</div>
+        <ul class="nav-items">
+            <li class="nav-item">
+                <a href="#" class="nav-link active">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" onclick="openNFAForm(); return false;">
+                    <span class="nav-icon">➕</span>
+                    <span class="nav-text">Create New</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span class="nav-icon">📥</span>
+                    <span class="nav-text">Inbox</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span class="nav-icon">📤</span>
+                    <span class="nav-text">Sent Items</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span class="nav-icon">🏢</span>
+                    <span class="nav-text">MyNFA</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <span class="nav-icon">📝</span>
+                    <span class="nav-text">Draft</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="main-wrapper">
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <div class="profile-container">
+                        <div class="profile-icon">RA</div>
+                        <div class="profile-name">Rahul Agarwal</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="container">
+            <div class="welcome-section">
+                <h1 class="welcome-title">Welcome to Jayaswal Neco Industries Limited</h1>
+                <p class="welcome-description">Streamline your approval workflow with our easy-to-use platform. Monitor pending approvals and generate new forms with just a few clicks.</p>
+            </div>
+            
+            <!-- New Metrics Section -->
+            <div class="metrics-container">
+                <div class="metric-box">
+                    <div class="metric-icon">✅</div>
+                    <div class="metric-value">12</div>
+                    <div class="metric-label">NFAs Pending Approval</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-icon">❓</div>
+                    <div class="metric-value">5</div>
+                    <div class="metric-label">Clarifications Needed</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-icon">💡</div>
+                    <div class="metric-value">8</div>
+                    <div class="metric-label">Expert Advice Requests</div>
+                </div>
+            </div>
+          
+                
+                <div class="card form-generator">
+                    <div class="card-header">
+                        <h2>Quick Actions</h2>
+                    </div>
+                    <div>
+                        <button class="button" style="width: 100%; margin-top: 10px;" onclick="openNFAForm()">
+                            <span>➕</span>
+                            <span>Create New NFA Request</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- New NFA Form Modal -->
+    <div class="modal-overlay" id="nfa-form-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modal-title">Create New NFA Request</h2>
+                <button class="modal-close" onclick="closeNFAModal()">×</button>
+            </div>
+            <div id="nfa-form-content">
+                <div class="form-builder">
+                    <!-- Basic Information -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Subject *</label>
+                            <input type="text" class="form-input" placeholder="Enter subject">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Company *</label>
+                            <select class="form-select">
+                                <option value="">Select company</option>
+                                <option value="jnil">Jayaswal Neco Industries Limited</option>
+                                <option value="subsidiary1">Subsidiary 1</option>
+                                <option value="subsidiary2">Subsidiary 2</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Location *</label>
+                            <select class="form-select">
+                                <option value="">Select location</option>
+                                <option value="raipur">Raipur</option>
+                                <option value="nagpur">Nagpur</option>
+                                <option value="mumbai">Mumbai</option>
+                                <option value="delhi">Delhi</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Department *</label>
+                            <select class="form-select">
+                                <option value="">Select department</option>
+                                <option value="hr">Human Resources</option>
+                                <option value="finance">Finance</option>
+                                <option value="it">IT</option>
+                                <option value="operations">Operations</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="production">Production</option>
+                                <option value="procurement">Procurement</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Type of Approver *</label>
+                            <select class="form-select">
+                                <option value="">Select approver type</option>
+                                <option value="manager">Department Manager</option>
+                                <option value="director">Director</option>
+                                <option value="cfo">CFO</option>
+                                <option value="ceo">CEO</option>
+                                <option value="board">Board of Directors</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">NFA Reference</label>
+                            <input type="text" class="form-input" placeholder="Enter NFA reference number">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">NFA Amount (INR) *</label>
+                        <input type="number" class="form-input" placeholder="Enter amount">
+                    </div>
+                    
+                    <!-- Details Sections -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">Preamble Details</h3>
+                        <div class="form-group">
+                            <textarea class="form-textarea" placeholder="Enter preamble details"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3 class="form-section-title">Technical/Functional Details</h3>
+                        <div class="form-group">
+                            <textarea class="form-textarea" placeholder="Enter technical or functional details"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3 class="form-section-title">Commercial Details</h3>
+                        <div class="form-group">
+                            <textarea class="form-textarea" placeholder="Enter commercial details"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3 class="form-section-title">Proposal Details</h3>
+                        <div class="form-group">
+                            <textarea class="form-textarea" placeholder="Enter proposal details"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3 class="form-section-title">Other Details</h3>
+                        <div class="form-group">
+                            <textarea class="form-textarea" placeholder="Enter any other relevant details"></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Attachment Section -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">Attachments</h3>
+                        <div class="file-upload" onclick="document.getElementById('file-input').click()">
+                            <div class="file-upload-icon">📎</div>
+                            <div class="file-upload-text">Click to upload files or drag and drop</div>
+                            <input type="file" id="file-input" style="display: none" multiple>
+                        </div>
+                        <div id="file-list" style="margin-top: 10px;"></div>
+                    </div>
+                    
+                    <!-- Form Actions Footer -->
+                    <div class="form-footer">
+                        <button class="button button-secondary" onclick="saveAsDraft()">Save as Draft</button>
+                        <button class="button" onclick="saveAndAddApprovers()">Save & Add Approvers</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Open the NFA form modal
+        function openNFAForm() {
+            const modal = document.getElementById('nfa-form-modal');
+            modal.style.display = 'flex';
+        }
+        
+        // Close the NFA form modal
+        function closeNFAModal() {
+            const modal = document.getElementById('nfa-form-modal');
+            modal.style.display = 'none';
+        }
+        
+        // Handle file uploads
+        document.getElementById('file-input').addEventListener('change', function(e) {
+            const fileList = document.getElementById('file-list');
+            fileList.innerHTML = '';
+            
+            for (let i = 0; i < this.files.length; i++) {
+                const file = this.files[i];
+                const fileItem = document.createElement('div');
+                fileItem.textContent = file.name;
+                fileItem.style.padding = '5px 0';
+                fileList.appendChild(fileItem);
+            }
+        });
+        
+        // Save as draft functionality
+        function saveAsDraft() {
+            alert('Form saved as draft');
+            closeNFAModal();
+        }
+        
+        // Save and add approvers functionality
+        function saveAndAddApprovers() {
+            alert('Form saved. Redirecting to add approvers...');
+            closeNFAModal();
+        }
+    </script>
+</body>
+</html>

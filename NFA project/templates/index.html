@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JNIL Approval System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Side Navbar -->
+    <nav class="side-navbar">
+        <div class="side-navbar-logo">
+            <img src="/api/placeholder/40/40" alt="Logo" class="nav-logo-img">
+            <span>JNIL-NFA</span>
+        </div>
+        <ul class="nav-items">
+            <li class="nav-item">
+                <a href="#" class="nav-link active">
+                    <i class="fas fa-chart-line nav-icon"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" onclick="openNFAForm(); return false;">
+                    <i class="fas fa-plus-circle nav-icon"></i>
+                    <span class="nav-text">Create New</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-inbox nav-icon"></i>
+                    <span class="nav-text">Inbox</span>
+                    <span class="nav-badge">8</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-paper-plane nav-icon"></i>
+                    <span class="nav-text">Sent Items</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-building nav-icon"></i>
+                    <span class="nav-text">MyNFA</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-file-alt nav-icon"></i>
+                    <span class="nav-text">Draft</span>
+                    <span class="nav-badge">3</span>
+                </a>
+            </li>
+            <li class="nav-item nav-bottom">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-cog nav-icon"></i>
+                    <span class="nav-text">Settings</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-question-circle nav-icon"></i>
+                    <span class="nav-text">Help</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="main-wrapper">
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <div class="search-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" placeholder="Search for approvals..." class="search-input">
+                    </div>
+                    <div class="header-actions">
+                        <div class="notification-container">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">5</span>
+                        </div>
+                        <div class="profile-container">
+                            <div class="profile-icon">RA</div>
+                            <div class="profile-info">
+                                <div class="profile-name">Rahul Agarwal</div>
+                                <div class="profile-role">Procurement Manager</div>
+                            </div>
+                            <i class="fas fa-chevron-down profile-dropdown"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="container">
+            <div class="welcome-section">
+                <h1 class="welcome-title">Welcome back, Rahul</h1>
+                <p class="welcome-description">Here's an overview of your approval workflow at Jayaswal Neco Industries Limited</p>
+            </div>
+            
+            <!-- Dashboard Summary -->
+            <div class="metrics-container">
+                <div class="metric-box">
+                    <div class="metric-box-header">
+                        <div class="metric-icon active">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="metric-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>12%</span>
+                        </div>
+                    </div>
+                    <div class="metric-value">12</div>
+                    <div class="metric-label">Pending Approvals</div>
+                    <div class="metric-progress">
+                        <div class="progress-bar" style="width: 60%;"></div>
+                    </div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-box-header">
+                        <div class="metric-icon warning">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <div class="metric-trend down">
+                            <i class="fas fa-arrow-down"></i>
+                            <span>5%</span>
+                        </div>
+                    </div>
+                    <div class="metric-value">5</div>
+                    <div class="metric-label">Clarifications Needed</div>
+                    <div class="metric-progress">
+                        <div class="progress-bar warning" style="width: 40%;"></div>
+                    </div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-box-header">
+                        <div class="metric-icon info">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="metric-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>8%</span>
+                        </div>
+                    </div>
+                    <div class="metric-value">8</div>
+                    <div class="metric-label">Expert Advice Requests</div>
+                    <div class="metric-progress">
+                        <div class="progress-bar info" style="width: 75%;"></div>
+                    </div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-box-header">
+                        <div class="metric-icon success">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="metric-trend">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>15%</span>
+                        </div>
+                    </div>
+                    <div class="metric-value">24</div>
+                    <div class="metric-label">Completed This Month</div>
+                    <div class="metric-progress">
+                        <div class="progress-bar success" style="width: 85%;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-content">
+                <div class="main-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2><i class="fas fa-tasks"></i> Approval Requests</h2>
+                            <div class="card-actions">
+                                <span class="badge">3 pending</span>
+                                <div class="card-filter">
+                                    <select class="filter-select">
+                                        <option>All Status</option>
+                                        <option>Pending</option>
+                                        <option>Approved</option>
+                                        <option>Rejected</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="approval-list-container">
+                            <ul class="approval-list">
+                                <li class="approval-item">
+                                    <div class="approval-info">
+                                        <div class="approval-title">Travel Expense Reimbursement</div>
+                                        <div class="approval-meta">
+                                            <span><i class="fas fa-user"></i> John Doe</span>
+                                            <span><i class="fas fa-calendar"></i> Mar 27, 2025</span>
+                                            <span><i class="fas fa-rupee-sign"></i> 25,000</span>
+                                        </div>
+                                    </div>
+                                    <div class="approval-actions">
+                                        <span class="status status-pending">Pending</span>
+                                        <button class="action-button"><i class="fas fa-eye"></i></button>
+                                    </div>
+                                </li>
+                                <li class="approval-item">
+                                    <div class="approval-info">
+                                        <div class="approval-title">Software Purchase Request</div>
+                                        <div class="approval-meta">
+                                            <span><i class="fas fa-user"></i> Jane Smith</span>
+                                            <span><i class="fas fa-calendar"></i> Mar 26, 2025</span>
+                                            <span><i class="fas fa-rupee-sign"></i> 1,50,000</span>
+                                        </div>
+                                    </div>
+                                    <div class="approval-actions">
+                                        <span class="status status-approved">Approved</span>
+                                        <button class="action-button"><i class="fas fa-eye"></i></button>
+                                    </div>
+                                </li>
+                                <li class="approval-item">
+                                    <div class="approval-info">
+                                        <div class="approval-title">Time Off Request</div>
+                                        <div class="approval-meta">
+                                            <span><i class="fas fa-user"></i> Mike Johnson</span>
+                                            <span><i class="fas fa-calendar"></i> Mar 25, 2025</span>
+                                            <span><i class="fas fa-clock"></i> 5 days</span>
+                                        </div>
+                                    </div>
+                                    <div class="approval-actions">
+                                        <span class="status status-rejected">Rejected</span>
+                                        <button class="action-button"><i class="fas fa-eye"></i></button>
+                                    </div>
+                                </li>
+                                <li class="approval-item">
+                                    <div class="approval-info">
+                                        <div class="approval-title">Budget Approval</div>
+                                        <div class="approval-meta">
+                                            <span><i class="fas fa-user"></i> Sarah Williams</span>
+                                            <span><i class="fas fa-calendar"></i> Mar 24, 2025</span>
+                                            <span><i class="fas fa-rupee-sign"></i> 8,75,000</span>
+                                        </div>
+                                    </div>
+                                    <div class="approval-actions">
+                                        <span class="status status-pending">Pending</span>
+                                        <button class="action-button"><i class="fas fa-eye"></i></button>
+                                    </div>
+                                </li>
+                                <li class="approval-item">
+                                    <div class="approval-info">
+                                        <div class="approval-title">Contract Review</div>
+                                        <div class="approval-meta">
+                                            <span><i class="fas fa-user"></i> David Brown</span>
+                                            <span><i class="fas fa-calendar"></i> Mar 23, 2025</span>
+                                            <span><i class="fas fa-file-contract"></i> Legal</span>
+                                        </div>
+                                    </div>
+                                    <div class="approval-actions">
+                                        <span class="status status-pending">Pending</span>
+                                        <button class="action-button"><i class="fas fa-eye"></i></button>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="approval-footer">
+                                <button class="view-all-button">View All Requests <i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="side-content">
+                        <div class="card quick-actions">
+                            <div class="card-header">
+                                <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+                            </div>
+                            <div class="quick-action-buttons">
+                                <button class="quick-action-button" onclick="openNFAForm()">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>New NFA Request</span>
+                                </button>
+                                <button class="quick-action-button">
+                                    <i class="fas fa-search"></i>
+                                    <span>Track Request</span>
+                                </button>
+                                <button class="quick-action-button">
+                                    <i class="fas fa-copy"></i>
+                                    <span>Duplicate Request</span>
+                                </button>
+                                <button class="quick-action-button">
+                                    <i class="fas fa-download"></i>
+                                    <span>Export Reports</span>
+                                </button>
+                            </div>
+                        </div>
+                    
+                        <div class="card">
+                            <div class="card-header">
+                                <h2><i class="fas fa-bell"></i> Recent Notifications</h2>
+                            </div>
+                            <ul class="notification-list">
+                                <li class="notification-item unread">
+                                    <div class="notification-icon approved">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <div class="notification-text">Equipment purchase request was approved by VP</div>
+                                        <div class="notification-time">2 hours ago</div>
+                                    </div>
+                                </li>
+                                <li class="notification-item unread">
+                                    <div class="notification-icon pending">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <div class="notification-text">New NFA submitted by Production team</div>
+                                        <div class="notification-time">5 hours ago</div>
+                                    </div>
+                                </li>
+                                <li class="notification-item">
+                                    <div class="notification-icon comment">
+                                        <i class="fas fa-comment"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <div class="notification-text">Finance team requested clarification on Budget Approval</div>
+                                        <div class="notification-time">Yesterday</div>
+                                    </div>
+                                </li>
+                                <li class="notification-item">
+                                    <div class="notification-icon rejected">
+                                        <i class="fas fa-times-circle"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <div class="notification-text">Travel expense request was rejected</div>
+                                        <div class="notification-time">Yesterday</div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="notification-footer">
+                                <button class="view-all-button">View All Notifications <i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity Timeline -->
+                <div class="card activity-timeline">
+                    <div class="card-header">
+                        <h2><i class="fas fa-history"></i> Recent Activity</h2>
+                        <button class="refresh-button"><i class="fas fa-sync-alt"></i></button>
+                    </div>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-marker approved"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">Today, 10:45 AM</div>
+                                <div class="timeline-title">IT Equipment Purchase</div>
+                                <div class="timeline-description">CFO approved the NFA for 10 new laptops</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker pending"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">Today, 9:30 AM</div>
+                                <div class="timeline-title">Production Maintenance</div>
+                                <div class="timeline-description">New NFA created for quarterly maintenance</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker comment"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">Yesterday, 4:15 PM</div>
+                                <div class="timeline-title">Marketing Campaign</div>
+                                <div class="timeline-description">Finance requested additional details on budget breakdown</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker rejected"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">Yesterday, 2:00 PM</div>
+                                <div class="timeline-title">Office Supplies</div>
+                                <div class="timeline-description">Request rejected due to insufficient details</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker approved"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-date">Mar 29, 3:30 PM</div>
+                                <div class="timeline-title">Training Program</div>
+                                <div class="timeline-description">HR approved employee training program</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- New NFA Form Modal -->
+    <div class="modal-overlay" id="nfa-form-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modal-title"><i class="fas fa-file-alt"></i> Create New NFA Request</h2>
+                <button class="modal-close" onclick="closeNFAModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-tabs">
+                <button class="modal-tab active" data-tab="basic-info">Basic Info</button>
+                <button class="modal-tab" data-tab="details">Details</button>
+                <button class="modal-tab" data-tab="attachments">Attachments</button>
+                <button class="modal-tab" data-tab="approvers">Approvers</button>
+            </div>
+            <div id="nfa-form-content">
+                <div class="form-builder">
+                    <!-- Basic Information Tab -->
+                    <div class="form-tab-content active" id="basic-info-tab">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Subject <span class="required">*</span></label>
+                                <input type="text" class="form-input" placeholder="Enter subject">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Company <span class="required">*</span></label>
+                                <select class="form-select">
+                                    <option value="">Select company</option>
+                                    <option value="jnil">Jayaswal Neco Industries Limited</option>
+                                    <option value="subsidiary1">Subsidiary 1</option>
+                                    <option value="subsidiary2">Subsidiary 2</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Location <span class="required">*</span></label>
+                                <select class="form-select">
+                                    <option value="">Select location</option>
+                                    <option value="raipur">Raipur</option>
+                                    <option value="nagpur">Nagpur</option>
+                                    <option value="mumbai">Mumbai</option>
+                                    <option value="delhi">Delhi</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Department <span class="required">*</span></label>
+                                <select class="form-select">
+                                    <option value="">Select department</option>
+                                    <option value="hr">Human Resources</option>
+                                    <option value="finance">Finance</option>
+                                    <option value="it">IT</option>
+                                    <option value="operations">Operations</option>
+                                    <option value="marketing">Marketing</option>
+                                    <option value="production">Production</option>
+                                    <option value="procurement">Procurement</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Type of Approver <span class="required">*</span></label>
+                                <select class="form-select">
+                                    <option value="">Select approver type</option>
+                                    <option value="manager">Department Manager</option>
+                                    <option value="director">Director</option>
+                                    <option value="cfo">CFO</option>
+                                    <option value="ceo">CEO</option>
+                                    <option value="board">Board of Directors</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">NFA Reference</label>
+                                <div class="form-input-addon">
+                                    <span class="input-prefix">JNIL-</span>
+                                    <input type="text" class="form-input with-prefix" placeholder="Auto-generated">
+                                    <button class="input-action"><i class="fas fa-sync-alt"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">NFA Amount (INR) <span class="required">*</span></label>
+                                <div class="form-input-addon">
+                                    <span class="input-prefix">₹</span>
+                                    <input type="number" class="form-input with-prefix" placeholder="Enter amount">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Expected Completion</label>
+                                <input type="date" class="form-input">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Priority Level</label>
+                                <div class="priority-selector">
+                                    <label class="priority-option">
+                                        <input type="radio" name="priority" value="low">
+                                        <span class="priority-label low">Low</span>
+                                    </label>
+                                    <label class="priority-option">
+                                        <input type="radio" name="priority" value="medium" checked>
+                                        <span class="priority-label medium">Medium</span>
+                                    </label>
+                                    <label class="priority-option">
+                                        <input type="radio" name="priority" value="high">
+                                        <span class="priority-label high">High</span>
+                                    </label>
+                                    <label class="priority-option">
+                                        <input type="radio" name="priority" value="urgent">
+                                        <span class="priority-label urgent">Urgent</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Details Tab -->
+                    <div class="form-tab-content" id="details-tab">
+                        <div class="form-section">
+                            <h3 class="form-section-title">Preamble Details</h3>
+                            <div class="form-group">
+                                <div class="form-text-toolbar">
+                                    <button class="toolbar-button"><i class="fas fa-bold"></i></button>
+                                    <button class="toolbar-button"><i class="fas fa-italic"></i></button>
+                                    <button class="toolbar-button"><i class="fas fa-underline"></i></button>
+                                    <button class="toolbar-button"><i class="fas fa-list-ul"></i></button>
+                                    <button class="toolbar-button"><i class="fas fa-list-ol"></i></button>
+                                </div>
+                                <textarea class="form-textarea" placeholder="Enter preamble details"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3 class="form-section-title">Technical/Functional Details</h3>
+                            <div class="form-group">
+                                <div class="form-text-toolbar">
+                                    <button class="toolbar-button"><i class="fas fa-bold"></i></button>
+                                    <button class="toolbar-button"><i class="fas fa-italic"></i></button>
+                                    <button class="toolbar-button"><i class="fas fa-underline"></i></button>
+                                    <button class="toolbar-button"><i class="fas fa-list-ul"></i></button>
+                                    <button class="toolbar-button"><i class="fas fa-list-ol"></i></button>
+                                </div>
+                                <textarea class="form-textarea" placeholder="Enter technical or functional details"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3 class="form-section-title">Commercial Details</h3>
+                            <div class="form-group">
+                                <div class="form-text-toolbar">
+                                    <button class="toolbar-button"><i class="fas fa-bold"></i></button>
+                                    <button class="toolbar-button"><i class="fas fa-italic"></i></button>
+                                    <button class="toolbar-button"><i class="fas fa-underline"></i></button>
+                                    <button class="toolbar-button"><i class="fas fa-list-ul"></i></button>
+                                    <button class="toolbar-button"><i class="fas fa-list-ol"></i></button>
+                                </div>
+                                <textarea class="form-textarea" placeholder="Enter commercial details"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3 class="form-section-title">Proposal Details</h3>
+                            <div class="form-group">
+                                <div class="form-text-toolbar">
+                                    <button class="toolbar-button"><i class="fas fa-bold"></i></button>
+                                    <button class="toolbar-button"><i class="fas fa-italic"></i></button>
+                                    <button class="toolbar-button"><i class="fas fa-underline"></i></button>
+                                    <button class="toolbar-button"><i class="fas fa-list-ul"></i></button>
+                                    <button class="toolbar-button"><i class="fas fa-list-ol"></i></button>
+                                </div>
+                                <textarea class="form-textarea" placeholder="Enter proposal details"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3 class="form-section-title">Other Details</h3>
+                            <div class="form-group">
+                                <div class="form-text-toolbar">
+                                    <button class="toolbar-button"><i class="fas fa-bold"></i></button>
+                                    <button class="toolbar-button"><i class="fas fa-italic"></i></button>
+                                    <button class="toolbar-button"><i class="fas fa-underline"></i></button>
+                                    <button class="toolbar-button"><i class="fas fa-list-ul"></i></button>
+                                    <button class="toolbar-button"><i class="fas fa-list-ol"></i></button>
+                                </div>
+                                <textarea class="form-textarea" placeholder="Enter any other relevant details"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Attachments Tab -->
+                    <div class="form-tab-content" id="attachments-tab">
+                        <div class="form-section">
+                            <h3 class="form-section-title">Attachments</h3>
+                            <div class="file-upload" onclick="document.getElementById('file-input').click()">
+                                <div class="file-upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                                <div class="file-upload-text">Click to upload files or drag and drop</div>
+                                <div class="file-upload-info">Max file size: 10MB. Supported formats: PDF, DOC, XLS, JPG</div>
+                                <input type="file" id="file-input" style="display: none" multiple>
+                            </div>
+                            <div id="file-list" class="file-list">
+                                <!-- Sample files as placeholders -->
+                                <div class="file-item">
+                                    <div class="file-icon"><i class="fas fa-file-pdf"></i></div>
+                                    <div class="file-info">
+                                        <div class="file-name">specification_document.pdf</div>
+                                        <div class="file-size">2.4 MB</div>
+                                    </div>
+                                    <div class="file-actions">
+                                        <button class="file-action-button"><i class="fas fa-eye"></i></button>
+                                        <button class="file-action-button delete"><i class="fas fa-trash-alt"></i></button>
+                                    </div>
+                                </div>
+                                <div class="file-item">
+                                    <div class="file-icon"><i class="fas fa-file-excel"></i></div>
+                                    <div class="file-info">
+                                        <div class="file-name">budget_estimation.xlsx</div>
+                                        <div class="file-size">1.8 MB</div>
+                                    </div>
+                                    <div class="file-actions">
+                                        <button class="file-action-button"><i class="fas fa
